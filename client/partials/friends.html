@@ -1,0 +1,15 @@
+<table>
+	<thead class="dojo-table">
+		<th>Name</th>
+		<th>Show</th>
+		<th>Update</th>
+		<th>Delete</th>
+	</thead>
+	<tr ng-repeat="friend in Friend.all()">
+		<td>{{friend.first_name}} {{friend.last_name}}</td>
+		<td><a href="#!/friends/show/{{friend.id}}">show</a></td>
+		<td><a href="#!/friends/edit/{{friend.id}}">edit</a></td>
+		<td><a href="#" ng-click="Friend.delete(friend.id)">delete</a></td>
+	</tr>
+</table>
+<button ng-click="Friend.print()">Show All</button>

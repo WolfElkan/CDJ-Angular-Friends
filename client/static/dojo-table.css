@@ -1,0 +1,27 @@
+.dojo-table {
+	border: solid black 3px;
+}
+
+.dojo-table tr:nth-child(odd) {
+	background-color: #eee
+}
+
+.dojo-table tr:nth-child(even) {
+	background-color: #fff
+}
+
+.dojo-table thead {
+	background-color: #ccc
+}
+
+.dojo-table thead th, .dojo-table tr td {
+	border-left: solid black 2px;
+}
+
+.dojo-table thead th:first-child, .dojo-table tr td:first-child {
+	border-left: none;
+}
+
+.dojo-table th, .dojo-table td {
+	margin: 0;
+}
