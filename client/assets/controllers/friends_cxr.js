@@ -2,5 +2,6 @@ app.controller('friends_cxr',['$scope','FriendFactory','$routeParams',function( 
 	if ($routeParams.id) {
 		$scope.id = $routeParams.id
 	}
+	$scope.friend = FriendFactory.find($routeParams.id)
 	$scope.Friend = FriendFactory
 }])

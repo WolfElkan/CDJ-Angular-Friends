@@ -25,10 +25,22 @@ app.factory('FriendFactory',['$location',function( $location ) {
 		return content[index]
 	}
 
+	function valid(thing) {
+		return true
+	}
+
 	factory.create = function() {
 		factory.new.id = next_id++
 		content.push(factory.new)
 		factory.new = {}
+		$location.url('/friends')
+	}
+
+	factory.update = function(id, patch) {
+		var index = factory.findex(id)
+		if (valid(patch)) {
+			content[index] = patch
+		}
 		$location.url('/friends')
 	}
 
@@ -41,7 +53,8 @@ app.factory('FriendFactory',['$location',function( $location ) {
 	}
 
 	factory.print = function() {
-		console.log(content)
+		console.log(content
+		)
 	}
 
 	return factory
