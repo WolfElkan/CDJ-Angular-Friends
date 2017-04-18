@@ -13,6 +13,7 @@ app.factory('FriendFactory',['$location',function( $location ) {
 	}
 
 	factory.findex = function(id) {
+		// console.log(null)
 		for (var i = 0; i < content.length; i++) {
 			if (content[i].id == id) {
 				return i
