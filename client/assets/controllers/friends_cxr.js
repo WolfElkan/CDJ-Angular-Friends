@@ -10,4 +10,11 @@ app.controller('friends_cxr',['$scope','FriendFactory','$routeParams','$location
 		}
 	}
 	$scope.Friend = FriendFactory
+	$scope.new_friend = {}
+	$scope.create = function() {
+		FriendFactory.create($scope.new_friend,function(data) {
+			$scope.new_friend = {}
+		})
+
+	}
 }])

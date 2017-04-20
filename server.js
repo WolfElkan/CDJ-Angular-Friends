@@ -1,5 +1,4 @@
-var mongoose = require('mongoose'),
-	express  = require('express'),
+var	express  = require('express'),
 	bp       = require('body-parser'),
 	path     = require('path'),
 	root     = __dirname,
@@ -8,6 +7,8 @@ var mongoose = require('mongoose'),
 app.use(express.static(path.join(root, 'client')));
 app.use(express.static(path.join(root, 'bower_components')));
 app.use(bp.json())
+require('./server/config/routes.js')(app);
 app.listen(port, function() {
+	console.log(String(new Date))
 	console.log('Running at LOCALHOST: 127.0.0.1:'+port)
 });

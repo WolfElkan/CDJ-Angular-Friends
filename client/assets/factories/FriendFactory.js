@@ -1,8 +1,9 @@
-app.factory('FriendFactory',['$location',function( $location ) {
+app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 	var factory = {}
+	// var content = [{'id':1,'first_name':'Wolf','last_name':'Elkan','birthday':new Date(729080820000)}]
 	var content = []
 	factory.new = {}
-	var next_id = 1
+	var next_id = 2
 
 	factory.all = function() {
 		return content
@@ -30,10 +31,16 @@ app.factory('FriendFactory',['$location',function( $location ) {
 		return true
 	}
 
-	factory.create = function() {
-		factory.new.id = next_id++
-		content.push(factory.new)
-		factory.new = {}
+	factory.create = function(new_friend,callback) {
+		new_friend.id = next_id++
+		content.push(new_friend)
+		$http.post('/friends/create',new_friend)
+		// .then(function(returned_data) {
+		// 	if (typof(callback) == 'function') {
+		// 		callback(returned_data.data)
+		// 	}
+		// })
+		new_friend = {}
 		$location.url('/friends')
 	}
 

@@ -2,7 +2,7 @@ var app = angular.module('app', ['ngRoute'])
 
 app.config(function($routeProvider) {
 	$routeProvider.when('/friends',{
-		templateUrl: 'partials/friends.html',
+		templateUrl: 'partials/friends_index.html',
 		controller:  'friends_cxr'
 	})
 	$routeProvider.when('/friends/new',{
