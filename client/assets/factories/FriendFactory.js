@@ -1,20 +1,20 @@
 app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 	var factory = {}
-	// var content = [{'id':1,'first_name':'Wolf','last_name':'Elkan','birthday':new Date(729080820000)}]
 	var content = []
+	$http.get('/friends/index').then(function(returned) {
+		var friends = returned.data.friends
+		for (var i = 0; i < friends.length; i++) {
+			friends[i].id = i+1
+			content.push(friends[i])
+		}
+	})
 	factory.new = {}
-	var next_id = 2
 
 	factory.all = function() {
 		return content
 	}
 
-	factory.get = function(callback) {
-		return callback(content)
-	}
-
 	factory.findex = function(id) {
-		// console.log(null)
 		for (var i = 0; i < content.length; i++) {
 			if (content[i].id == id) {
 				return i
@@ -32,14 +32,14 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 	}
 
 	factory.create = function(new_friend,callback) {
-		new_friend.id = next_id++
 		content.push(new_friend)
 		$http.post('/friends/create',new_friend)
-		// .then(function(returned_data) {
+		.then(function(returned) {
 		// 	if (typof(callback) == 'function') {
-		// 		callback(returned_data.data)
+		// 		callback(returned.data)
 		// 	}
-		// })
+			console.log(returned)
+		})
 		new_friend = {}
 		$location.url('/friends')
 	}
@@ -48,6 +48,7 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 		var index = factory.findex(id)
 		if (valid(patch)) {
 			content[index] = patch
+			$http.post('/friends/update',patch)
 		}
 		$location.url('/friends')
 	}
@@ -55,6 +56,7 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 	factory.delete = function(id) {
 		var index = factory.findex(id)
 		for (var i = index; i < content.length; i++) {
+			$http.post('/friends/delete',{'local_id':id})
 			content[i] = content[i+1]
 		}
 		content.pop()

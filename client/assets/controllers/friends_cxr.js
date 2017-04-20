@@ -3,8 +3,12 @@ app.controller('friends_cxr',['$scope','FriendFactory','$routeParams','$location
 		var id = $routeParams.id
 		if (FriendFactory.findex(id)+1) {
 			$scope.id = id
-			$scope.friend = FriendFactory.find(id)
-			$scope.friend.birthday_str = pretty($scope.friend.birthday)
+			var friend = FriendFactory.find(id)
+			$scope.friend = friend
+			console.log($scope.friend)
+			$scope.friend.unix_birthday = unix(friend.birthday)
+			$scope.friend.pretty_birthday = pretty(unix(friend.birthday))
+			// $scope.friend.birthday_str = 'his birthday'
 		} else {
 			$location.url('/friends')
 		}
