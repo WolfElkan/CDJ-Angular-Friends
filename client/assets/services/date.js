@@ -1,5 +1,19 @@
 function pretty(date) {
-	return ['January','February','March','April','May','June','July','August','September','October','November','December',][date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
+	var month_names = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	]
+	return month_names[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
 }
 
 function unix(date_str) {

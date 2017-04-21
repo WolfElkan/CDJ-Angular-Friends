@@ -1,4 +1,4 @@
-var Friend = require('../models/Friend.js')
+var Friend = require('../models/friends.js')
 
 module.exports = function(app) {
 
@@ -20,9 +20,13 @@ module.exports = function(app) {
 	})
 
 	app.get('/friends/index', function(request, response) {
-		response.json({'friends':[{'first_name':'Wolf','last_name':'Elkan','birthday':new Date(729080820000)}]})
+		// response.json({'friends':[{'first_name':'Wolf','last_name':'Elkan','birthday':new Date(729080820000)}]})
 		// var mongoose = require('../config/mongoose.js');
 		// console.log(mongoose)
+		Friend.find({},function(error,result) {
+			response.json({'friends':result})
+		})
+
 	})
 
 	app.post('/friends/update', function(request, response) {

@@ -8,5 +8,5 @@ var FriendSchema = new mongoose.Schema({
 	birthday:   Date,
 	// id:         7,
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
-mongoose.model('Friend',FriendSchema);
-module.exports = mongoose.model('Friend');
+mongoose.model('friends',FriendSchema);
+module.exports = mongoose.model('friends');
