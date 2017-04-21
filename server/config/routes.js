@@ -21,6 +21,8 @@ module.exports = function(app) {
 
 	app.get('/friends/index', function(request, response) {
 		response.json({'friends':[{'first_name':'Wolf','last_name':'Elkan','birthday':new Date(729080820000)}]})
+		// var mongoose = require('../config/mongoose.js');
+		// console.log(mongoose)
 	})
 
 	app.post('/friends/update', function(request, response) {

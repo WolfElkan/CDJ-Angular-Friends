@@ -32,16 +32,20 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 	}
 
 	factory.create = function(new_friend,callback) {
-		content.push(new_friend)
-		$http.post('/friends/create',new_friend)
-		.then(function(returned) {
-		// 	if (typof(callback) == 'function') {
-		// 		callback(returned.data)
-		// 	}
-			console.log(returned)
-		})
-		new_friend = {}
-		$location.url('/friends')
+		if (valid(new_friend)) {
+			content.push(new_friend)
+			$http.post('/friends/create',new_friend)
+			.then(function(returned) {
+			// 	if (typof(callback) == 'function') {
+			// 		callback(returned.data)
+			// 	}
+				console.log(returned)
+			})
+			new_friend = {}
+			$location.url('/friends')
+		} else {
+			// display errors
+		}
 	}
 
 	factory.update = function(id, patch) {
