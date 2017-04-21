@@ -7,9 +7,9 @@
 	</thead>
 	<tr ng-repeat="friend in Friend.all()">
 		<td>{{friend.first_name}} {{friend.last_name}}</td>
-		<td><a href="#!/friends/show/{{friend.id}}">show</a></td>
-		<td><a href="#!/friends/edit/{{friend.id}}">edit</a></td>
-		<td><a href="#" ng-click="Friend.delete(friend.id)">delete</a></td>
+		<td><a href="#!/friends/show/{{friend._id}}">show</a></td>
+		<td><a href="#!/friends/edit/{{friend._id}}">edit</a></td>
+		<td><a href="#" ng-click="Friend.delete(friend._id)">delete</a></td>
 	</tr>
 </table>
 <button ng-click="Friend.print()">Show All</button>
