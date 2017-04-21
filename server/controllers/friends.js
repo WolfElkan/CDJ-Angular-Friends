@@ -7,14 +7,16 @@ module.exports = function(app) {
 			first_name : request.body.first_name,
 			last_name  : request.body.last_name,
 			birthday   : request.body.birthday,
+			temp_id    : request.body.temp_id,
 		})
-		new_friend.save(function(error) {
+		new_friend.save(function(error,result) {
 			if (error) {
 				console.log(500)
 				console.log(error)
 			} else {
 				console.log(201.0)
-				console.log(new_friend)
+				console.log(result)
+				response.json(result)
 			}
 		})
 	})

@@ -8,40 +8,44 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 			content.push(friends[i])
 		}
 	})
-	var next_temp_id = 1
+	var next_temp_id = 3
 	factory.new = {}
 
 	factory.all = function() {
 		return content
 	}
 
-	factory.findex = function(_id) {
+	factory.findex = function(id,key='_id') {
 		for (var i = 0; i < content.length; i++) {
-			if (content[i]._id == _id) {
+			if (content[i][key] == id) {
 				return i
 			}
 		}
 	}
 
-	factory.find = function(_id) {
-		var index = factory.findex(_id)
+	factory.find = function(id,key='_id') {
+		var index = factory.findex(id,key)
 		return content[index]
 	}
 
-	function valid(thing) {
+	function valid(friend) {
 		return true
 	}
 
 	factory.create = function(new_friend,callback) {
 		if (valid(new_friend)) {
-			new_friend._id = next_temp_id++
+			new_friend.temp_id = next_temp_id++
 			content.push(new_friend)
-			$http.post('/friends/create',new_friend)
-			.then(function(returned) {
+			$http.post('/friends/create',new_friend).then(function(returned) {
 			// 	if (typof(callback) == 'function') {
 			// 		callback(returned.data)
 			// 	}
-				console.log(returned)
+				console.log(returned.data)
+				var temp_id = returned.data.temp_id
+				var _id = returned.data._id
+				var index = factory.findex(temp_id,'temp_id')
+				console.log(index,content[index])
+				content[index]._id = _id
 			})
 			new_friend = {}
 			$location.url('/friends')
@@ -76,4 +80,5 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 	}
 
 	return factory
+	
 }])
