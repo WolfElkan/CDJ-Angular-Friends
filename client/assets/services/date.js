@@ -17,13 +17,19 @@ function pretty(date) {
 }
 
 function unix(date_str) {
-	var year  = date_str.substr( 0,4)
-	var month = date_str.substr( 5,2) - 1
-	var date  = date_str.substr( 8,2)
-	var hour  = date_str.substr(11,2)
-	var min   = date_str.substr(14,2)
-	var sec   = date_str.substr(17,6)
-	return new Date(year,month,date,hour,min,sec)
+	if (date_str.__proto__.constructor.name == "String") {
+		var year  = date_str.substr( 0,4)
+		var month = date_str.substr( 5,2) - 1
+		var date  = date_str.substr( 8,2)
+		var hour  = date_str.substr(11,2)
+		var min   = date_str.substr(14,2)
+		var sec   = date_str.substr(17,6)
+		return new Date(year,month,date,hour,min,sec)
+	} else if (date_str.__proto__.constructor.name == "Date") {
+		return date_str
+	} else {
+		console.log('Type Error')
+	}
 }
 
 // %a	Weekday as locale’s abbreviated name.										Mon

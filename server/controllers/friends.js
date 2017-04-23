@@ -14,7 +14,7 @@ module.exports = function(app) {
 				console.log(500)
 				console.log(error)
 			} else {
-				console.log(201.0)
+				console.log(201)
 				console.log(result)
 				response.json(result)
 			}

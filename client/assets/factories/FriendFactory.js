@@ -8,7 +8,6 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 			content.push(friends[i])
 		}
 	})
-	var next_temp_id = 3
 	factory.new = {}
 
 	factory.all = function() {
@@ -34,6 +33,12 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 
 	factory.create = function(new_friend,callback) {
 		if (valid(new_friend)) {
+			var next_temp_id = 0
+			for (var i = 0; i < content.length; i++) {
+				if (next_temp_id <= content[i].temp_id) {
+					next_temp_id =  content[i].temp_id + 1
+				}
+			}
 			new_friend.temp_id = next_temp_id++
 			content.push(new_friend)
 			$http.post('/friends/create',new_friend).then(function(returned) {
@@ -44,11 +49,11 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 				var temp_id = returned.data.temp_id
 				var _id = returned.data._id
 				var index = factory.findex(temp_id,'temp_id')
-				console.log(index,content[index])
 				content[index]._id = _id
+				console.log(index,content[index]._id)
+				$location.url('/friends')
 			})
 			new_friend = {}
-			$location.url('/friends')
 		} else {
 			// display errors
 		}
@@ -56,7 +61,11 @@ app.factory('FriendFactory',['$location','$http',function( $location , $http ) {
 
 	factory.update = function(friend) {
 		var _id = friend._id
-		var patch = friend
+		var patch = {
+			'first_name' : friend_first_name,
+			'last_name'  : friend_last_name,
+			'birthday'   : friend_birthday,
+		}
 		patch._id = undefined
 		var index = factory.findex(_id)
 		if (valid(patch)) {
